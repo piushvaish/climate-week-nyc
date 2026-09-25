@@ -1,0 +1,89 @@
+name: Publish Calcatreu dashboard
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      deploy: ${{ steps.mode.outputs.deploy }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Determine refresh mode
+        id: mode
+        env:
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+          EVENT_NAME: ${{ github.event_name }}
+        shell: bash
+        run: |
+          if [ -n "$TAVILY_API_KEY" ]; then
+            echo 'refresh=true' >> "$GITHUB_OUTPUT"
+            echo 'deploy=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'refresh=false' >> "$GITHUB_OUTPUT"
+            if [ "$EVENT_NAME" = 'schedule' ]; then
+              echo 'deploy=false' >> "$GITHUB_OUTPUT"
+            else
+              echo 'deploy=true' >> "$GITHUB_OUTPUT"
+            fi
+          fi
+      - name: Validate source and satellite calculations
+        if: steps.mode.outputs.deploy == 'true'
+        run: |
+          python -m unittest -v test_dashboard.py test_pages.py
+          node --check dashboard/dashboard.js
+          node --check dashboard/pages.js
+      - name: Retrieve updated news
+        if: steps.mode.outputs.refresh == 'true'
+        env:
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+        run: python refresh_news.py
+      - name: Build public assets
+        if: steps.mode.outputs.deploy == 'true'
+        env:
+          NEWS_REFRESH: ${{ steps.mode.outputs.refresh }}
+        run: |
+          if [ "$NEWS_REFRESH" = 'true' ]; then
+            python build_pages.py --news-refresh-configured
+          else
+            python build_pages.py
+          fi
+      - name: Upload website only
+        if: steps.mode.outputs.deploy == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  deploy:
+    if: needs.build.outputs.deploy == 'true'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

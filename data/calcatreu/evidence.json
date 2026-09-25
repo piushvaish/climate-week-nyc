@@ -1,0 +1,34 @@
+{
+  "reviewedAt": "2026-09-25",
+  "ownershipAsOf": "2025-06-30",
+  "filingUrl": "https://patagoniagold.com/wp-content/uploads/2025/08/Patagonia-Gold-June-30-2025-FS-VF.pdf",
+  "events": [
+    {"id":"community-2022","year":2022,"date":"2022-11","datePrecision":"month","category":"Community","title":"Company reports local consultation","excerpt":"The project website describes a community consultation milestone in November 2022. This is the company's account, not an independent measure of community consent.","publisher":"Calcatreu project website","url":"https://calcatreu.com/comunidad-y-medio-ambiente.php","sourceType":"Company account"},
+    {"id":"permits-2024","year":2024,"date":"2024-11","datePrecision":"month","category":"Project","title":"Construction permits reported","excerpt":"Patagonia Gold says final permits to begin construction were received in November 2024.","publisher":"Patagonia Gold","url":"https://patagoniagold.com/operations/calcatreu/","sourceType":"Company account"},
+    {"id":"funding-2025","year":2025,"date":"2025-05-30","datePrecision":"day","category":"Money","title":"US$40 million preferred-share financing","excerpt":"The June 2025 financial statements report Black River Mine's investment in Patagonia Gold Canada for Calcatreu development and financing expenses.","publisher":"Patagonia Gold · note 19","url":"https://patagoniagold.com/wp-content/uploads/2025/08/Patagonia-Gold-June-30-2025-FS-VF.pdf","sourceType":"Company filing"},
+    {"id":"construction-2025","year":2025,"date":"2025","datePrecision":"year","category":"Project","title":"Construction and drilling programme","excerpt":"The project history describes 2025 construction work, including access and camp facilities, alongside drilling.","publisher":"Calcatreu project website","url":"https://calcatreu.com/historia.php","sourceType":"Company account"},
+    {"id":"water-2026","year":2026,"date":"2026-04-24","datePrecision":"day","category":"Environment","title":"Third participatory water sampling reported","excerpt":"Río Negro reported another round of water sampling. The article describes monitoring activity; it does not provide the laboratory results needed to assess water quality.","publisher":"Government of Río Negro","url":"https://gobierno.rionegro.gov.ar/articulo/58874/calcatreu-completo-el-tercer-muestreo-participativo-de-aguas","sourceType":"Government report"},
+    {"id":"inspection-2026","year":2026,"date":"2026-07-06","datePrecision":"day","category":"Environment","title":"Environmental inspection at the project","excerpt":"The province reported inspections of processing and leaching infrastructure. A reported inspection is evidence of oversight activity, not a finding of no environmental impact.","publisher":"Government of Río Negro","url":"https://modernizacion.rionegro.gov.ar/articulo/60117/ambiente-superviso-avances-de-obra-y-controles-en-calcatreu","sourceType":"Government report"},
+    {"id":"carbon-2026","year":2026,"date":"2026-09-08","datePrecision":"day","category":"Production","title":"Province attends loaded-carbon sampling","excerpt":"The provincial water department reported participation in sampling of activated carbon from the operation.","publisher":"Government of Río Negro","url":"https://dpa.rionegro.gov.ar/articulo/61316/rio-negro-acompana-el-muestreo-de-carbon-cargado-en-calcatreu","sourceType":"Government report"},
+    {"id":"workforce-2026","year":2026,"date":"2026-09-15","datePrecision":"day","category":"Community","title":"Local recruitment, training and safety","excerpt":"A provincial working-group update describes recruitment, training and safety measures associated with Calcatreu.","publisher":"Government of Río Negro","url":"https://gde.rionegro.gov.ar/articulo/61480/calcatreu-nuevas-incorporaciones-capacitaciones-y-mejoras-en-seguridad","sourceType":"Government report"}
+  ],
+  "entities": [
+    {"id":"corp","name":"Patagonia Gold Corp.","detail":"Listed parent · Canada"},
+    {"id":"brm","name":"Black River Mine Inc.","detail":"Preferred-share investor"},
+    {"id":"pgl","name":"Patagonia Gold Limited","detail":"Holding company · UK"},
+    {"id":"pgi","name":"Patagonia Gold Canada Inc.","detail":"Project holding company"},
+    {"id":"minera","name":"Minera Calcatreu S.A.U.","detail":"Argentine project entity"}
+  ],
+  "relationships": [
+    {"from":"corp","to":"pgl","label":"100% ownership"},
+    {"from":"pgl","to":"pgi","label":"60% interest · common shares"},
+    {"from":"brm","to":"pgi","label":"40% interest · non-voting preferred shares"},
+    {"from":"pgi","to":"minera","label":"100% direct ownership"}
+  ],
+  "controlNote":"The filing identifies Carlos J. Miguens as controlling Black River Mine. This is a disclosed related-party connection.",
+  "distributionStages": [
+    {"brm":80,"pgl":20,"description":"80% to BRM and 20% to PGL until BRM has received US$40 million."},
+    {"brm":0,"pgl":100,"description":"Then 100% to PGL until PGL has received US$60 million."},
+    {"brm":40,"pgl":60,"description":"Thereafter, 40% to BRM and 60% to PGL."}
+  ]
+}

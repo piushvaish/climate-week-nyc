@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+site/
+python_packages/
+python_packages312/
+data/trusted-ca.pem
+data/calcatreu/*.npz
+data/calcatreu/*.tif
+data/calcatreu/scene-*.json
+data/calcatreu/*.tmp
+data/calcatreu/sayari.json
+.DS_Store
+Thumbs.db

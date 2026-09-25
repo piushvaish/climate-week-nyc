@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calcatreu · Land & money</title>
+  <link rel="stylesheet" href="/dashboard.css">
+</head>
+<body>
+<main>
+  <header class="masthead"><div><p class="eyebrow">PATAGONIA OBSERVATORY / DEMO</p><h1>Calcatreu <span>Land & money</span></h1><p>Río Negro, Argentina · Satellite observations, public reporting and corporate connections.</p></div><div class="connection"><span class="dot"></span><span id="connection">Loading saved evidence</span></div></header>
+  <nav aria-label="Dashboard views"><button id="land-tab" aria-pressed="true">Landscape & news</button><button id="money-tab" aria-pressed="false">Ownership & money</button><span class="pending" id="sayari-status">Sayari · authorization pending</span></nav>
+  <section id="land-panel" aria-labelledby="land-tab">
+    <div class="intro"><div><p class="eyebrow">01 / THE LANDSCAPE</p><h2>Watch the landscape change.</h2><p>Move through 2022–2026. Compare imagery, then read the evidence alongside it.</p></div><button id="method-button">How to read this</button></div>
+    <div class="metrics" aria-live="polite">
+      <div><span>2022 vegetation still above threshold</span><strong id="retained">—</strong><div class="meter"><i id="retained-meter"></i></div><small id="retained-context"></small></div>
+      <div><span>Baseline vegetation with lower greenness</span><strong id="decline">—</strong><small>NDVI decline greater than 0.10</small></div>
+      <div><span>Comparable study area</span><strong id="coverage">—</strong><small id="coverage-context"></small></div>
+    </div>
+    <p class="scope" id="scope">Loading satellite coverage…</p>
+    <div class="land-grid">
+      <section class="map-section" aria-label="Satellite comparison">
+        <div class="map-title"><div><strong id="observation">Satellite observation</strong><small>25 × 25 km study window · north up</small></div><label><input id="mask-toggle" type="checkbox" checked> Change mask</label></div>
+        <div class="map-wrap"><canvas id="map" width="800" height="800" role="img" aria-label="Calcatreu satellite imagery with a vegetation change mask"></canvas><div class="map-corner">LANDSAT 8 / 9 <span id="map-year">2026</span></div><div class="map-north">N ↑</div><div class="map-scale"><i></i>5 km</div><div class="project-label">⊕ Calcatreu project coordinate</div><div id="cell-detail" class="cell-detail" hidden></div></div>
+        <div class="legend"><span><i class="green"></i>Still above threshold</span><span><i class="rust"></i>Lower greenness</span><span><i class="hatch"></i>Excluded from comparison</span></div>
+        <div class="timeline"><button id="play" aria-label="Play yearly observations">Play</button><div class="timeline-range"><label for="year">Observation year <b id="year-label">2026</b></label><input id="year" type="range" min="2022" max="2026" value="2026" step="1"><div class="ticks"><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div></div></div>
+        <div class="compare"><label for="wipe">Image comparison · 2022 on left / selected year on right</label><input id="wipe" type="range" min="0" max="100" value="0"><span id="wipe-label">Selected image only</span></div>
+        <p class="fine">Black pixels are excluded by satellite quality checks. The mask is a vegetation screen, not a forest inventory or a mine boundary. Click the image to inspect a 200 m cell.</p>
+      </section>
+      <aside class="news-section"><div class="news-heading"><h3>Evidence at this time</h3><span id="news-year">2026</span></div><div id="stories"></div><p id="story-empty" hidden>No reviewed project events for this year. Satellite coverage is still available.</p><details class="more"><summary>Live discovery from Tavily <span id="discovery-count"></span></summary><p class="fine" id="news-updated"></p><button id="refresh-news">Refresh news</button><p id="refresh-status" role="status"></p><div id="discovered-stories"></div></details></aside>
+    </div>
+    <details class="brief"><summary>AI research brief <span>With source links</span></summary><p class="scope">Tavily-generated draft, not independently verified. The retrieved accounts give differing March/April 2026 leaching dates; use the original releases to resolve them. This text does not attribute vegetation changes to mining.</p><p id="ai-brief"></p><div id="ai-sources" class="links"></div></details>
+    <details id="method" class="method"><summary>Methods, coverage and source observations</summary><p id="method-text"></p><p>“Still above threshold” counts only cells with NDVI ≥ 0.20 in 2022 that also meet that threshold in the selected observation. “Lower greenness” counts baseline vegetation with an NDVI decrease greater than 0.10. These measures can overlap. Weather, season, soil, grazing, fire and land use can all affect greenness.</p><p>The comparison uses a fixed set of cells with valid observations in every year. It does not estimate vegetation in the unobserved area. Cells can recover; the display does not force a downward trend. The 2026 observation is a dated snapshot, not a full-year total.</p><div id="scene-table"></div><div id="satellite-sources" class="links"></div></details>
+  </section>
+  <section id="money-panel" aria-labelledby="money-tab" hidden>
+    <div class="intro"><div><p class="eyebrow">02 / FOLLOW THE CONNECTIONS</p><h2>Who finances the project?</h2><p>Explore the disclosed ownership chain and the terms for distributing available cash.</p></div><span class="pending">Public filing · 30 June 2025</span></div>
+    <div class="money-grid"><section><div class="funding"><span>Reported project financing · 30 May 2025</span><strong>US$40 million</strong><p>Black River Mine → Patagonia Gold Canada<br>Preferred-share investment for Calcatreu development and financing expenses.</p></div><h3>Ownership chain</h3><p class="fine">Select an entity to see its sourced relationships. Snapshot as of June 2025; share classes differ.</p><div id="network" class="network"></div><div id="entity-detail" class="entity-detail" aria-live="polite"></div></section>
+    <aside><h3>Where available cash could go</h3><p>Contractual distribution sequence disclosed in the filing. These are terms, not confirmed payments.</p><label for="phase">Distribution stage</label><select id="phase"><option value="0">1 · Initial BRM recovery</option><option value="1">2 · PGL recovery</option><option value="2">3 · Subsequent distributions</option></select><div class="allocation" role="img" id="allocation"></div><p id="phase-detail"></p><div class="allocation-legend"><span><i class="purple"></i>Black River Mine</span><span><i class="green"></i>Patagonia Gold Limited</span></div><a id="filing-link" target="_blank" rel="noopener noreferrer">Read note 19 of the filing ↗</a><hr><h3>Sayari investigation</h3><p id="sayari-description">Account authorization is pending. Once connected, entity identifiers and documented ownership or trade links can help investigate gaps in this public record.</p><div id="sayari-results"></div><p class="fine">Corporate relationships alone do not establish illicit activity. This demo has no verified evidence of shadow-economy activity or actual downstream payments.</p></aside></div>
+    <details class="method"><summary>Open evidence gaps</summary><ul><li>Current ownership and control after the June 2025 filing.</li><li>Actual cash distributions, buyers, export counterparties and shipment evidence.</li><li>Field validation, a forest-cover mask and the mine footprint needed to assess environmental impacts.</li></ul></details>
+  </section>
+  <footer><span>Open satellite data · Open-source code · External Tavily / Sayari enrichment</span><span id="snapshot-time"></span></footer>
+</main>
+<script id="bootstrap" type="application/json">__BOOTSTRAP__</script><script src="/dashboard.js"></script><script src="/live.js"></script>
+</body></html>
